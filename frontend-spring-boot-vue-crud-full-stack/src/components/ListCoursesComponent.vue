@@ -36,7 +36,16 @@
   export default {
     name: "CoursesList",
     data() {
+
       return {
+        /*
+courses: [], message: null, - 
+To display courses, we need to make them available to the component.
+ We add courses to the state of the component and 
+ initialize it in the constructor.
+
+
+        */
         courses: [],
         message: null,
         INSTRUCTOR: "in28minutes"
@@ -60,6 +69,11 @@ You can define how to process the response in the then method.
       refreshCourses() {
         CourseDataService.retrieveAllCourses(this.INSTRUCTOR) //HARDCODED
           .then(response => {
+/*            
+response => {this.courses = response.data;} - 
+When the response comes back with data, we update the state.
+
+*/            
             this.courses = response.data;
           });
       },
