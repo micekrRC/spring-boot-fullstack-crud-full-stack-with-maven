@@ -8,6 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  
 https://start.spring.io/
 
+add this comment, 10:44pm EST, 12/15/19
+
 */
 @SpringBootApplication
 public class SpringBootFullstackCrudFullStackWithMavenApplication {
