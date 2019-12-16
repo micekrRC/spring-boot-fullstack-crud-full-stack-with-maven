@@ -29,6 +29,8 @@ export default {
         });
     },
   },
+    // test comment
+
   created() {
     this.refreshCourseDetails();
   }
