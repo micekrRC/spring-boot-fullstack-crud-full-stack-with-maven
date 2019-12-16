@@ -45,6 +45,8 @@
 
     /*
 
+    test
+
 methods: { refreshCourses() {}} - Any method in a vue component 
 should be under methods. 
 CourseDataService.retrieveAllCourses(INSTRUCTOR).then - 
