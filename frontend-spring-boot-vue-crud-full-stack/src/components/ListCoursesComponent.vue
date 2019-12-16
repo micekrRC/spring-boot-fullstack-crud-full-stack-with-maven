@@ -1,21 +1,36 @@
+
 <template>
   <div class="container">
     <h3>All Courses</h3>
-    <div v-if="message" class="alert alert-success">
-      {{message}}
-    </div>
+    <div v-if="message" class="alert alert-success">{{message}}</div>
     <div class="container">
       <table class="table">
         <thead>
           <tr>
             <th>Id</th>
             <th>Description</th>
+
+            <th>Update</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
+          <!--
+
+  v-for="course in courses" - 
+Allow you to loop around a list of items and define how each item should be displayed.
+  v-bind:key="course.id" - 
+A key is used to uniquely identify a row.
+  <td>{{course.id}}</td> - 
+Decide how column is displayed
+  <td>{{course.description}}</td> - 
+Decide how column is displayed
+
+          -->
           <tr v-for="course in courses" v-bind:key="course.id">
             <td>{{course.id}}</td>
             <td>{{course.description}}</td>
+            <!--
             <td>
               <button
                 class="btn btn-warning"
@@ -23,6 +38,15 @@
               >
                 Delete
               </button>
+            </td>
+            -->
+            <td>
+              <button class="btn btn-success" 
+                v-on:click="updateCourseClicked(course.id)">Update</button>
+            </td>
+            <td>
+              <button class="btn btn-warning" 
+              v-on:click="deleteCourseClicked(course.id)">Delete</button>
             </td>
           </tr>
         </tbody>
@@ -32,13 +56,12 @@
 </template>
 
 <script>
-  import CourseDataService from "../service/CourseDataService";
-  export default {
-    name: "CoursesList",
-    data() {
-
-      return {
-        /*
+import CourseDataService from "../service/CourseDataService";
+export default {
+  name: "CoursesList",
+  data() {
+    return {
+      /*
 courses: [], message: null, - 
 To display courses, we need to make them available to the component.
  We add courses to the state of the component and 
@@ -46,13 +69,13 @@ To display courses, we need to make them available to the component.
 
 
         */
-        courses: [],
-        message: null,
-        INSTRUCTOR: "in28minutes"
-      };
-    },
+      courses: [],
+      message: null,
+      INSTRUCTOR: "in28minutes"
+    };
+  },
 
-    /*
+  /*
 
     test
 
@@ -65,19 +88,60 @@ You can define how to process the response in the then method.
 
     */
 
-    methods: {
-      refreshCourses() {
-        CourseDataService.retrieveAllCourses(this.INSTRUCTOR) //HARDCODED
-          .then(response => {
-/*            
+  methods: {
+
+    refreshCourses() {
+      CourseDataService.retrieveAllCourses(this.INSTRUCTOR) //HARDCODED
+        .then(response => {
+          /*            
 response => {this.courses = response.data;} - 
 When the response comes back with data, we update the state.
 
-*/            
-            this.courses = response.data;
-          });
-      },
-      /*
+*/
+
+          this.courses = response.data;
+        });
+    },
+
+    updateCourseClicked(id) {
+//      this.$router.push(`/courses/${id}`);
+     
+
+/*
+following using   '   '   will cause compile error
+this.$router.push('/courses/${id}');
+
+Failed to compile.
+
+./src/components/ListCoursesComponent.vue
+Module Error (from ./node_modules/eslint-loader/index.js):
+error: 'id' is defined but never used (no-unused-vars) at src\components\ListCoursesComponent.vue:106:25:
+  104 |     },
+  105 | 
+> 106 |     updateCourseClicked(id) {
+      |                         ^
+  107 | //      this.$router.push(`/courses/${id}`);
+  108 |       
+  109 | // following using   '   '   will cause compile error
+
+have to use like follows
+this.$router.push(`/courses/${id}`);
+
+top left key (next to # 1 key)
+
+*/
+      this.$router.push(`/courses/${id}`);
+
+    },
+
+
+    /*
+
+syntax error in tutorial
+https://www.springboottutorial.com/spring-boot-vue-full-stack-crud-maven-application
+...
+deleteCourseClicked(id) {
+
 
  ERROR  Failed to compile with 1 errors                                             9:28:47 PM
 
@@ -102,33 +166,58 @@ error: 'response' is defined but never used (no-unused-vars) at src\components\L
       }
 
 
+On click of the button we are calling the deleteCourseClicked method 
+passing the course id. The implementation for deleteCourseClicked is shown below:
+
+When we get a successful response for delete API call, 
+we set a message into state and refresh the courses list
+
+
       */
-      deleteCourseClicked(id) {
-        CourseDataService.deleteCourse(this.INSTRUCTOR, id).then(response => {
-          this.message = `Delete of course ${id} Successful`;
-          this.refreshCourses();
-          /*
+    deleteCourseClicked(id) {
+      //CourseDataService.deleteCourse(this.INSTRUCTOR, id).then(response => {
+      CourseDataService.deleteCourse(this.INSTRUCTOR, id).then(response => {
+        this.message = `Delete of course ${id} Successful`;
+        this.refreshCourses();
+
+        // way to get around - compile response not used error
+        response.status;
+        /*
           rjm-debug, added this 
           this.courses = response.data; 
           to resolve the compile error
           */
-          this.courses = response.data; 
-        });
-      }
-      
+        //this.courses = response.data;
+        //var a = response.data;
+        /*
 
-    },
+https://stackoverflow.com/questions/49525310/error-console-is-not-defined-no-undef-brackets
+ERROR: 'console is not defined. [no-undef] - Brackets
 
-/*
+*/
+
+        //          console.log(response.data);
+      });
+    }
+
+
+
+
+
+
+
+  },
+
+  /*
 created() - Vue defines a component lifecycle. 
 created will be called as soon as the component is mounted. 
 We are calling refreshCourses as soon as a component is mounted.
 
   */
-    created() {
-      this.refreshCourses();
-    }
-  };
+  created() {
+    this.refreshCourses();
+  }
+};
 </script>
 
 <style></style>
