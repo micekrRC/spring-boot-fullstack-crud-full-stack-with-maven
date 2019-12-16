@@ -16,14 +16,51 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+
+
+/*
+ 
+running java server web port 8080
+loading client app from
+http://localhost:8089/
+client code is calling server code on port 8080 from port 8089
+
+getting the following error:
+
+Access to XMLHttpRequest at 'http://localhost:8080/instructors/in28minutes/courses' from origin 'http://localhost:8089' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+
+Uncaught (in promise) Error: Network Error
+    at createError (createError.js?2d83:16)
+    at XMLHttpRequest.handleError (xhr.js?b50d:81)
+
+    code BEFORE
 @CrossOrigin(origins = { "http://localhost:3000", "http://localhost:4200" })
+@RestController
+public class CourseResource {    
+    
+    NEW code, to fix CORS error/exception
+@CrossOrigin(origins = { "http://localhost:3000", "http://localhost:4200" })
+@RestController
+public class CourseResource {    
+   
+@CrossOrigin
+Allow requests from specific origins    
+    
+    
+*/
+
 /*
  * 
  * @RestController : Combination of @Controller and @ResponseBody
  * 
  * Beans returned are converted to/from JSON/XML.
  * 
+ * 
  */
+@CrossOrigin(origins = { 
+		"http://localhost:3000", 
+		"http://localhost:4200", 
+		"http://localhost:8089" })
 @RestController
 public class CourseResource {
 	/*
