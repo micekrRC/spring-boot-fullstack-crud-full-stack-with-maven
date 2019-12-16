@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-
-
 /*
  
 running java server web port 8080
@@ -47,6 +45,12 @@ public class CourseResource {
 Allow requests from specific origins    
     
     
+We will use 3000 to run React, 			<< did NOT setup REACT code, proably won't (because of time)
+and 8081 to run Vue JS apps,   			<< using 8089 
+and we use 4200 to run Angular apps.  	<< did NOT setup Angular code, proably won't (because of time)
+Hence we are allowing requests from all ports.    
+    
+    
 */
 
 /*
@@ -57,10 +61,7 @@ Allow requests from specific origins
  * 
  * 
  */
-@CrossOrigin(origins = { 
-		"http://localhost:3000", 
-		"http://localhost:4200", 
-		"http://localhost:8089" })
+@CrossOrigin(origins = { "http://localhost:3000", "http://localhost:4200", "http://localhost:8089" })
 @RestController
 public class CourseResource {
 	/*
