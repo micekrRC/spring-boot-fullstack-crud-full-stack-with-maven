@@ -20,7 +20,7 @@ v-model is binding input to the data, same is with description, it will automati
     --> 
       <form @submit="validateAndSubmit">
         <div v-if="errors.length">
-            <div class="alert alert-warning" v-bind:key="index" v-for="(error, index) in errors"></div>
+            <div class="alert alert-warning" v-bind:key="index" v-for="(error, index) in errors">{{ error }}</div>
         </div>
         <fieldset class="form-group">
           <label>Id</label>
@@ -70,6 +70,8 @@ Note the data can be computed at runtime using computed function. Here id is tak
         if(!this.description) {
             console.log("Enter a description"); // rjm-debug
             this.errors.push("Enter valid values");            
+
+
         } else if(this.description.length < 5) {
             console.log("Enter at least 5 characters in Description"); // rjm-debug
             this.errors.push("Enter at least 5 characters in Description");
@@ -108,6 +110,13 @@ the course listing page using this.$router.push('/courses').
                     this.$router.push('/courses');
                 });
             }
+        } else {
+
+
+            // dump errors to console    
+            console.log("this.errors:" + this.errors);
+
+
         }
         
 
