@@ -7,14 +7,18 @@ v-model is binding input to the data, same is with description, it will automati
 <input type="text" class="form-control" v-model="id" disabled> - Creating a disabled text element for id. v-model value should match data.
 <input type="text" class="form-control" v-model="description"> - Creating a text element for description.
 <button class="btn btn-success" type="submit">Save</button> - Adding a submit button.
--->
 
-<!-- committed/added this comment line after adding form -->
+-->
 <template>
   <div>
     <h3>Course</h3>
     <div class="container">
-      <form>
+    <!--
+        tie up the form with the submit method. 
+        The key snippet is @submit="validateAndSubmit".
+
+    --> 
+      <form @submit="validateAndSubmit">
         <fieldset class="form-group">
           <label>Id</label>
           <input type="text" class="form-control" v-model="id" disabled>
@@ -50,6 +54,19 @@ Note the data can be computed at runtime using computed function. Here id is tak
     }
   },
   methods: {
+
+    validateAndSubmit(e) {
+
+        // this console call is working (aka: no compile error)
+        console.log({
+        id: this.id,
+        description: this.description
+        })  
+
+        e.name;
+    },
+
+
     refreshCourseDetails() {
         CourseDataService.retrieveCourse(this.INSTRUCTOR, this.id).then(res => {
           this.description = res.data.description;
