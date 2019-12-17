@@ -18,6 +18,9 @@ export default {
     };
   },
   computed: {
+/*
+Note the data can be computed at runtime using computed function. Here id is taken from url params
+      */
     id() {
       return this.$route.params.id;
     }
