@@ -69,12 +69,15 @@ Note the data can be computed at runtime using computed function. Here id is tak
         this.errors = [];
         if(!this.description) {
             console.log("Enter a description"); // rjm-debug
-            this.errors.push("Enter valid values");            
-
+            this.errors.push("Enter valid values");  
 
         } else if(this.description.length < 5) {
-            console.log("Enter at least 5 characters in Description"); // rjm-debug
-            this.errors.push("Enter at least 5 characters in Description");
+            
+            //this.errors.push("Enter at least 5 characters in Description");
+            var m = "You ONLY supplied " + this.description.length + " characters of the expected 5.";   
+            this.errors.push(m);
+            console.log(m); // rjm-debug
+
         } else {
             console.log("form PASSED validation!"); // rjm-debug 
         }
