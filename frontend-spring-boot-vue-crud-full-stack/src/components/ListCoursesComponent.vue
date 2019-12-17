@@ -52,7 +52,15 @@ Decide how column is displayed
         </tbody>
       </table>
     </div>
+
+    <div class="row">
+        <button class="btn btn-success" v-on:click="addCourseClicked()">Add</button>
+    </div>
+
+
   </div>
+
+
 </template>
 
 <script>
@@ -104,35 +112,32 @@ When the response comes back with data, we update the state.
     },
 
     updateCourseClicked(id) {
-//      this.$router.push(`/courses/${id}`);
-     
+      this.$router.push(`/courses/${id}`);
+    },
+
+    addCourseClicked() {    
 
 /*
-following using   '   '   will cause compile error
-this.$router.push('/courses/${id}');
+ 
+https://www.springboottutorial.com/spring-boot-vue-full-stack-crud-maven-application
 
-Failed to compile.
+Let’s add the appropriate method to handle click of Add button.
 
-./src/components/ListCoursesComponent.vue
-Module Error (from ./node_modules/eslint-loader/index.js):
-error: 'id' is defined but never used (no-unused-vars) at src\components\ListCoursesComponent.vue:106:25:
-  104 |     },
-  105 | 
-> 106 |     updateCourseClicked(id) {
-      |                         ^
-  107 | //      this.$router.push(`/courses/${id}`);
-  108 |       
-  109 | // following using   '   '   will cause compile error
+methods: {
+  ...
+  addCourseClicked() {
+    this.$router.push(`/course/-1`);
+  },
+}
 
-have to use like follows
-this.$router.push(`/courses/${id}`);
+this.$router.push(`/course/-1`);
+ was typo in tutorial, s/b /courses
 
-top left key (next to # 1 key)
 
 */
-      this.$router.push(`/courses/${id}`);
-
+      this.$router.push(`/courses/-1`);      
     },
+
 
 
     /*
