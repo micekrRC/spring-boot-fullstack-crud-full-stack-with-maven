@@ -17,6 +17,31 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 /*
+base/rootFolder of GIT
+C:\micekr\temp\spring-boot-fullstack-crud-full-stack-with-maven
+
+root folder of vue code (NOT another GIT repo, just a sub-folder for client side code)
+C:\micekr\temp\spring-boot-fullstack-crud-full-stack-with-maven\frontend-spring-boot-vue-crud-full-stack
+
+added this line to test out GIT featureS in vs code
+src\main\java\com\in28minutes\fullstack\springboot\maven\crud\springbootfullstackcrudfullstackwithmaven\CourseResource.java
+CourseResource.java is and actual Java class that I accessed from vs code,
+I am using vs code just to edit and debug client vue (include *.js) code
+under
+C:\micekr\temp\spring-boot-fullstack-crud-full-stack-with-maven\frontend-spring-boot-vue-crud-full-stack
+but, vs code actually notifies me of any changes in the base git repositiory
+of
+C:\micekr\temp\spring-boot-fullstack-crud-full-stack-with-maven
+
+where as the client code that I am editing/debugging in vs code is under the subfolder
+of
+C:\micekr\temp\spring-boot-fullstack-crud-full-stack-with-maven\frontend-spring-boot-vue-crud-full-stack
+
+FYI
+
+*/
+
+/*
  
 running java server web port 8080
 loading client app from
@@ -101,37 +126,63 @@ public class CourseResource {
 	public Course getCourse(@PathVariable String username, @PathVariable long id) {
 		return courseManagementService.findById(id);
 	}
-
+	/*
+	 * 
+@DeleteMapping("/instructors/{username}/courses/{id}") - 
+	We are mapping the Delete Request Method with two path variables
+@PathVariable String username, @PathVariable long id - 
+	Defining the variables for Path Variables	
+	
+	*/
 	@DeleteMapping("/instructors/{username}/courses/{id}")
 	public ResponseEntity<Void> deleteCourse(@PathVariable String username, @PathVariable long id) {
 
 		Course course = courseManagementService.deleteById(id);
 
 		if (course != null) {
+			/*
+			ResponseEntity.noContent().build() - If Request is successful, return no content back
+			*/
 			return ResponseEntity.noContent().build();
 		}
 
+		/*
+		ResponseEntity.notFound().build() - If delete failed, return error - resource not found.
+		*/
 		return ResponseEntity.notFound().build();
 	}
-
+	/*
+	using PUT method to update the course. 
+	On course updating, we are returning 200 status with the 
+	updated course details in the body.	
+	
+	*/
 	@PutMapping("/instructors/{username}/courses/{id}")
-	public ResponseEntity<Course> updateCourse(@PathVariable String username, @PathVariable long id,
+	public ResponseEntity<Course> updateCourse(@PathVariable String username, 
+			@PathVariable long id,
 			@RequestBody Course course) {
 
 		Course courseUpdated = courseManagementService.save(course);
 
 		return new ResponseEntity<Course>(course, HttpStatus.OK);
 	}
-
+	/*
+Let’s add a method to the Resource class to create the course. 
+We are using POST method to create the course. 
+On course updating, we are returning a status of CREATED.	
+	
+	*/
 	@PostMapping("/instructors/{username}/courses")
-	public ResponseEntity<Void> createCourse(@PathVariable String username, @RequestBody Course course) {
+	public ResponseEntity<Void> createCourse(@PathVariable String username, 
+			@RequestBody Course course) {
 
 		Course createdCourse = courseManagementService.save(course);
 
 		// Location
 		// Get current resource url
 		/// {id}
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdCourse.getId())
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}").buildAndExpand(createdCourse.getId())
 				.toUri();
 
 		return ResponseEntity.created(uri).build();
