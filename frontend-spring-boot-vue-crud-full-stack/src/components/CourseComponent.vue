@@ -69,7 +69,7 @@ Note the data can be computed at runtime using computed function. Here id is tak
         this.errors = [];
         if(!this.description) {
             console.log("Enter a description"); // rjm-debug
-            this.errors.push("Enter valid values");  
+            this.errors.push("Enter a valid description.");  
 
         } else if(this.description.length < 5) {
             
