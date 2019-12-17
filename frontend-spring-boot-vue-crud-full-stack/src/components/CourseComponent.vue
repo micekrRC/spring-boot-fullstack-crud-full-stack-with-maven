@@ -8,6 +8,8 @@ v-model is binding input to the data, same is with description, it will automati
 <input type="text" class="form-control" v-model="description"> - Creating a text element for description.
 <button class="btn btn-success" type="submit">Save</button> - Adding a submit button.
 -->
+
+<!-- committed/added this comment line after adding form -->
 <template>
   <div>
     <h3>Course</h3>
