@@ -55,15 +55,49 @@ Note the data can be computed at runtime using computed function. Here id is tak
   },
   methods: {
 
+/*
+
+./src/components/CourseComponent.vue
+Module Error (from ./node_modules/eslint-loader/index.js):
+error: 'values' is defined but never used (no-unused-vars) at src\components\CourseComponent.vue:59:14:
+  57 | 
+  58 | 
+> 59 |     validate(values) {
+     |              ^
+  60 |         e.preventDefault();
+  61 |         this.errors = [];
+  62 |         if(!this.description) {
+
+
+error: 'e' is not defined (no-undef) at src\components\CourseComponent.vue:60:9:
+  58 | 
+  59 |     validate(values) {
+> 60 |         e.preventDefault();
+
+
+typo in tuturial
+validate(values) {
+s/b
+validateAndSubmit(e) {
+
+
+*/
     validateAndSubmit(e) {
 
-        // this console call is working (aka: no compile error)
         console.log({
         id: this.id,
         description: this.description
-        })  
+        }) 
 
-        e.name;
+        e.preventDefault();
+        this.errors = [];
+        if(!this.description) {
+            console.log("Enter a description"); // rjm-debug
+            this.errors.push("Enter valid values");            
+        } else if(this.description.length < 5) {
+            console.log("Enter at least 5 characters in Description"); // rjm-debug
+            this.errors.push("Enter at least 5 characters in Description");
+        }
     },
 
 
