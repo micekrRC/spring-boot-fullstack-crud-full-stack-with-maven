@@ -19,6 +19,9 @@ v-model is binding input to the data, same is with description, it will automati
 
     --> 
       <form @submit="validateAndSubmit">
+        <div v-if="errors.length">
+            <div class="alert alert-warning" v-bind:key="index" v-for="(error, index) in errors"></div>
+        </div>
         <fieldset class="form-group">
           <label>Id</label>
           <input type="text" class="form-control" v-model="id" disabled>
@@ -55,33 +58,6 @@ Note the data can be computed at runtime using computed function. Here id is tak
   },
   methods: {
 
-/*
-
-./src/components/CourseComponent.vue
-Module Error (from ./node_modules/eslint-loader/index.js):
-error: 'values' is defined but never used (no-unused-vars) at src\components\CourseComponent.vue:59:14:
-  57 | 
-  58 | 
-> 59 |     validate(values) {
-     |              ^
-  60 |         e.preventDefault();
-  61 |         this.errors = [];
-  62 |         if(!this.description) {
-
-
-error: 'e' is not defined (no-undef) at src\components\CourseComponent.vue:60:9:
-  58 | 
-  59 |     validate(values) {
-> 60 |         e.preventDefault();
-
-
-typo in tuturial
-validate(values) {
-s/b
-validateAndSubmit(e) {
-
-
-*/
     validateAndSubmit(e) {
 
         console.log({
@@ -97,7 +73,44 @@ validateAndSubmit(e) {
         } else if(this.description.length < 5) {
             console.log("Enter at least 5 characters in Description"); // rjm-debug
             this.errors.push("Enter at least 5 characters in Description");
+        } else {
+            console.log("form PASSED validation!"); // rjm-debug 
         }
+
+        if(this.errors.length === 0) {
+           /*
+            update the CourseComponent to invoke the right service 
+            on the click of the submit button.
+            */
+
+            console.log("form PASSED validation .. ready to update datastore"); // rjm-debug 
+/*
+
+We are creating a course object with the updated details 
+and calling the appropriate method on the CourseDataService. 
+Once the request is successful, we are redirecting the user to 
+the course listing page using this.$router.push('/courses').
+
+*/
+            if (this.id === -1) {
+                CourseDataService.createCourse(this.INSTRUCTOR, {
+                    description: this.description
+                })
+                .then(() => {
+                    this.$router.push('/courses');
+                });
+            } else {
+                CourseDataService.updateCourse(this.INSTRUCTOR, this.id, {
+                    id: this.id,
+                    description: this.description
+                })
+                .then(() => {
+                    this.$router.push('/courses');
+                });
+            }
+        }
+        
+
     },
 
 
