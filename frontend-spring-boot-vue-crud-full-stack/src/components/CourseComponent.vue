@@ -6,6 +6,7 @@
   </div>
 </template>
 
+
 <script>
 import CourseDataService from '../service/CourseDataService';
 export default {
