@@ -1,8 +1,29 @@
+<!--
+
+Following are some of the important details:
+
+Form creation in Vue is similar as creating form in HTML
+v-model is binding input to the data, same is with description, it will automaticall display initial values.
+<input type="text" class="form-control" v-model="id" disabled> - Creating a disabled text element for id. v-model value should match data.
+<input type="text" class="form-control" v-model="description"> - Creating a text element for description.
+<button class="btn btn-success" type="submit">Save</button> - Adding a submit button.
+-->
 <template>
   <div>
-      <h3>Course</h3>
-      <div>{{id}}</div>
-      <div>{{description}}</div>
+    <h3>Course</h3>
+    <div class="container">
+      <form>
+        <fieldset class="form-group">
+          <label>Id</label>
+          <input type="text" class="form-control" v-model="id" disabled>
+        </fieldset>
+        <fieldset class="form-group">
+          <label>Description</label>
+          <input type="text" class="form-control" v-model="description">
+        </fieldset>
+        <button class="btn btn-success" type="submit">Save</button>
+      </form>
+    </div>
   </div>
 </template>
 
