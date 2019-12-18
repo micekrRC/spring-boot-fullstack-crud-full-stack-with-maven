@@ -33,6 +33,22 @@ v-model is binding input to the data, same is with description, it will automati
         <button class="btn btn-success" type="submit">Save</button>
       </form>
     </div>
+
+    <br>
+
+<!--        
+        <div>
+        <button class="btn btn-success" 
+            v-on:click="gotoCourses()">Home
+        </button>
+
+                <a class="btn btn-success"  v-on:click="gotoCourses()">Goto Home</a>
+    </div>
+
+-->
+
+
+    <a class="btn btn-success"  v-on:click="gotoCourses()">Courses</a>
   </div>
 </template>
 
@@ -57,6 +73,18 @@ Note the data can be computed at runtime using computed function. Here id is tak
     }
   },
   methods: {
+
+      /*
+      add method signature
+      and button/link to call this method
+      to route to the list
+
+      this.$router.push('/courses');
+
+      */
+    gotoCourses() {
+        this.$router.push('/courses');
+    },
 
     validateAndSubmit(e) {
 
@@ -114,27 +142,20 @@ the course listing page using this.$router.push('/courses').
                 });
             }
         } else {
-
-
             // dump errors to console    
             console.log("this.errors:" + this.errors);
-
-
         }
-        
-
     },
 
-
-    refreshCourseDetails() {
-        CourseDataService.retrieveCourse(this.INSTRUCTOR, this.id).then(res => {
-          this.description = res.data.description;
-        });
+refreshCourseDetails() {	
+	CourseDataService.retrieveCourse(this.INSTRUCTOR, this.id).then(res => {		
+		this.description = res.data.description;
+    });
+    
     },
-  },
-    // test comment
+  },    
 
-  created() {
+  created() {       // called during component load
     this.refreshCourseDetails();
   }
 };

@@ -42,7 +42,8 @@ Decide how column is displayed
             -->
             <td>
               <button class="btn btn-success" 
-                v-on:click="updateCourseClicked(course.id)">Update</button>
+                v-on:click="updateCourseClicked(course.id)">Update
+              </button>
             </td>
             <td>
               <button class="btn btn-warning" 
