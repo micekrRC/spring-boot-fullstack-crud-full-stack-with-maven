@@ -1,24 +1,21 @@
-# frontend-spring-boot-vue-crud-full-stack
+app	
+spring-boot-fullstack-crud-full-stack-with-maven
+configured with the following ports
 
-## Project setup
-```
-npm install
-```
+backend server web port	8093
+\spring-boot-fullstack-crud-full-stack-with-maven\src\main\resources\application.properties	
+server.port=8093
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+front cli server port	8089
+\spring-boot-fullstack-crud-full-stack-with-maven\frontend-spring-boot-vue-crud-full-stack\package.json	
+"serve": "vue-cli-service serve --port 8089"	
 
-### Compiles and minifies for production
-```
-npm run build
-```
+**important**	backend server and front end server MUST have different PORTS !!!!	
 
-### Lints and fixes files
-```
-npm run lint
-```
+change to map to (back end) server port	\spring-boot-fullstack-crud-full-stack-with-maven\frontend-spring-boot-vue-crud-full-stack\src\service\CourseDataService.js	
+COURSE_API_URL	http://localhost:8093
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+access app at	
+http://localhost:8090/	
+port 8090 is REassigned by client server running on port 8089
+
