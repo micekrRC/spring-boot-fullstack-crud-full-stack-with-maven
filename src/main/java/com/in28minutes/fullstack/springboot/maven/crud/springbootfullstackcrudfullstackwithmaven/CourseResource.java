@@ -86,8 +86,27 @@ Hence we are allowing requests from all ports.
  * 
  * 
  */
-@CrossOrigin(origins = { "http://localhost:3000", "http://localhost:4200", "http://localhost:8089" })
+//@CrossOrigin(origins = { "http://localhost:3000", "http://localhost:4200", "http://localhost:8089" })
+/*
+@CrossOrigin(origins = 
+{ 	"http://localhost:3000", 
+	"http://localhost:4200", 
+	"http://localhost:8089",
+	"http://localhost:8080",	
+	"http://localhost:8090" 
+	
+})
+*/
 @RestController
+@CrossOrigin(origins = 
+{ 
+//	"http://localhost:3000", 
+//	"http://localhost:4200", 
+//	"http://localhost:8089",
+//	"http://localhost:8080",	
+	"http://localhost:8090" 
+	
+})
 public class CourseResource {
 	/*
 	 * 
